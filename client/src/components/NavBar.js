@@ -16,7 +16,7 @@ const NavBar = () => {
             <Nav.Link as={Link} to='/createpost' >write</Nav.Link>
             <NavDropdown title='CATEGORIES' id='collasible-nav-dropdown'>
               <NavDropdown.Item>TECHNICAL</NavDropdown.Item>
-              <NavDropdown.Item>CULTURAL</NavDropdown.Item>
+              <NavDropdown.Item>CULTURAL EVENTS</NavDropdown.Item>
               <NavDropdown.Item>STUDY</NavDropdown.Item>
               <NavDropdown.Item>SPORTS</NavDropdown.Item>
             </NavDropdown>
@@ -28,6 +28,13 @@ const NavBar = () => {
               to='/login'
             >
               LOGIN / SIGNUP
+            </Navbar.Text>
+            <Navbar.Text
+              className='text-decoration-none text-white'
+              as={Link}
+              to='/settings'
+            >
+              <img alt='profile' className='rounded-circle' src='/assets/banner.jpg' style={{height:"45px",width:"45px",objectFit:"cover"}} />
             </Navbar.Text>
           </Nav>
         </Navbar.Collapse>

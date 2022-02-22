@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md';
 const PostScreen = () => {
     return (
         <Container className='py-4' >
-            <img src='/assets/post.jpg' className='w-100 mb-3 ' style={{ height: "400px", borderRadius: "5px", objectFit: "contain" }} alt='image' />
+            <img src='/assets/post.jpg' className='w-100 mb-3 rounded' style={{ height: "400px", borderRadius: "5px", objectFit: "cover" }} alt='image' />
             <h3 className='text-center  ' >
                 Title Of The Post
                 <div className='float-end'>
