@@ -1,7 +1,7 @@
 
-import mongoose from 'mongoose';
+const mongoose = require("mongoose")
 
-export const connectdb = () => {
+module.exports = connectdb = () => {
 
   mongoose
     .connect(
@@ -18,3 +18,4 @@ export const connectdb = () => {
       console.log(err);
     });
 };
+

@@ -9,7 +9,7 @@ const CreatePostScreen = () => {
       <h3 className='text-center my-3 text-decoration-underline '>
         Write Your Post <BsPenFill />
       </h3>
-      <img src='/assets/post.jpg' style={{width:"100%",height:"250px",borderRadius:"10px",objectFit:"cover"}} />
+      <img alt="post" src='/assets/post.jpg' style={{width:"100%",height:"250px",borderRadius:"10px",objectFit:"cover"}} />
       <Form className='mt-3'>
         <Form.Group controlId='formFile' className='mb-3'>
           <Form.Label>Enter Image</Form.Label>

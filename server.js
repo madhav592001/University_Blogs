@@ -1,14 +1,20 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import { connectdb } from './db/conn.js';
+const express = require('express');
+const dotenv = require('dotenv');
+const connectdb = require('./db/conn');
+const authRoutes = require('./routes/authRoutes');
+const cors = require('cors');
 
 const app = express();
 dotenv.config();
+app.use(express.json());
+app.use(cors('*'));
 
 connectdb();
 
+app.use('/auth', authRoutes);
 
+//TODO LISTNER
 const port = process.env.PORT;
-app.listen(() => {
+app.listen(port,() => {
   console.log(`Server Listening on Port ${port}`);
 });
