@@ -2,23 +2,20 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Post = () => {
+const Post = ({blog}) => {
   return (
     <Card>
       <Card.Img variant='top' src='/assets/post.jpg' />
       <Card.Body>
         <Card.Title>
-          <h4>Card title</h4>
+          <h4>{blog.title}</h4>
         </Card.Title>
         <Card.Text>
-          <small>Category</small>
+          <small>{blog.categories[0]}</small>
         </Card.Text>
         <hr />
         <Card.Text className='text-truncate text-justify'>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-          odsnfiojasdinfsdmuv8 fads f8j asdinvidsjviadshivasdijv iasdji0fj
-          adsinf iadsjv sadup fiadsh guejuo fhgiasng up9hvinfu gh
+        {blog.desc}
         </Card.Text>
       </Card.Body>
       

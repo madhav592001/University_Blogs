@@ -7,7 +7,7 @@ const NavBar = () => {
     <Navbar collapseOnSelect expand='lg' bg='primary' variant='dark'>
       <Container>
         <Navbar.Brand as={Link} to='/'>
-          UNIVERSITY BLOGS
+          YOUR BLOGS
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
