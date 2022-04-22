@@ -77,7 +77,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 });
 
 //todo GET BLOG BY ID
-router.get('/id/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
     res.status(200).json(blog);
@@ -100,6 +100,7 @@ router.get('/your', authenticateToken, async (req, res) => {
   }
 });
 
+//todo GET ALL THE BLOGS
 router.get('/', async (req, res) => {
   const catName = req.query.cat;
   try {

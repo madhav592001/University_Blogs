@@ -8,7 +8,7 @@ import { Spinner } from 'react-bootstrap';
 const Posts = () => {
   const dispatch = useDispatch();
   const allBlogs = useSelector((state) => state.allBlogs);
-  const { loading, blogs, error } = allBlogs;
+  const { loading, blogs } = allBlogs;
 
   useEffect(() => {
     dispatch(getBlogs());
@@ -28,7 +28,7 @@ const Posts = () => {
         <Row>
         {
             blogs.map((blog)=>(
-                <Col className='my-3' sm={12} md={4}>
+              <Col className='my-3' sm={12} md={4}>
                 <Post blog={blog} />
               </Col>
             ))

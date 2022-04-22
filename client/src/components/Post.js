@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Post = ({blog}) => {
+const Post = ({ blog }) => {
   return (
     <Card>
       <Card.Img variant='top' src='/assets/post.jpg' />
@@ -15,12 +15,12 @@ const Post = ({blog}) => {
         </Card.Text>
         <hr />
         <Card.Text className='text-truncate text-justify'>
-        {blog.desc}
+          {blog.desc}
         </Card.Text>
       </Card.Body>
-      
-      <div className='w-100 d-flex justify-content-center ' >
-        <Link to={`/post/fj`} className='btn btn-info w-100'  >
+
+      <div className='w-100 d-flex justify-content-center '>
+        <Link to={`/post/${blog._id}`} className='btn btn-info w-100'>
           VIEW FULL
         </Link>
       </div>
