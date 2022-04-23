@@ -15,7 +15,7 @@ const PostScreen = () => {
 
   useEffect(() => {
     dispatch(getBlogsById(id));
-  }, [dispatch]);
+  }, [dispatch,id]);
 
   // console.log(blog)
 
