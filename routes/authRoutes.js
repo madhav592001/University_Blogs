@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
   const new_user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.pass,
   });
 
   const newuser = await new_user.save();
@@ -28,9 +28,7 @@ router.post('/login', async (req, res) => {
       if (user.authenticate(req.body.password)) {
         const userPayload = { id: user._id }; //* payload
 
-        const accessToken = jwt.sign(userPayload, process.env.JWT_SECRET, {
-          expiresIn: '3h',
-        });
+        const accessToken = jwt.sign(userPayload, process.env.JWT_SECRET);
         const {hashPassword,...others} = user._doc ; 
 
         return res.status(200).json({
