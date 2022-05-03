@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { allBlogsReducer, blogReducer } from './reducers/blogsReducer';
 import { allCategoriesReducer } from './reducers/categoriesReducer';
-import { registerReducer } from './reducers/authReducer';
+import { loginReducer, registerReducer } from './reducers/authReducer';
 
 
 const reducer = combineReducers({
@@ -11,6 +11,7 @@ const reducer = combineReducers({
     blog:blogReducer,
     allCategories:allCategoriesReducer,
     register:registerReducer,
+    login:loginReducer,
 });
 
 const initialState = {};

@@ -7,19 +7,25 @@ import RegisterScreen from './screens/RegisterScreen';
 import PostScreen from './screens/PostScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
 import ProfileSettings from './screens/ProfileSettings';
+import {Navigate} from 'react-router-dom'
+import { useSelector } from 'react-redux';
+
 
 function App() {
+  const loginState = useSelector((state) => state.login);
+
+  const { isLogin} = loginState;
   return (
     <div className='App text-primary'>
       <Router>
         <NavBar />
         <Routes>
           <Route exact path='/' element={<HomeScreen />} />
-          <Route exact path='/login' element={<LoginScreen />} />
-          <Route exact path='/register' element={<RegisterScreen />} />
+          <Route exact path='/login' element={ isLogin ? <Navigate to="/" /> : <LoginScreen />} />
+          <Route exact path='/register' element={isLogin ? <Navigate to="/" /> : <RegisterScreen />} />
           <Route exact path='/post/:id' element={<PostScreen />} />
-          <Route exact path='/createpost' element={<CreatePostScreen />} />
-          <Route exact path='/settings' element={<ProfileSettings />} />
+          <Route exact path='/createpost' element={ isLogin ? <CreatePostScreen /> : <Navigate to="/login" />} />
+          <Route exact path='/settings' element={isLogin ? <ProfileSettings /> : <Navigate to="/" /> } />
         </Routes>
       </Router>
     </div>

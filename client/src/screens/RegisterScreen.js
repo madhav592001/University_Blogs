@@ -36,7 +36,7 @@ const RegisterScreen = () => {
       {loading === true ? (
         <div className='d-flex justify-content-center mt-5'>
           <Spinner animation='border' role='status'>
-            <span>Loading...</span>
+            <span>Signing Up..</span>
           </Spinner>
         </div>
       ) : (

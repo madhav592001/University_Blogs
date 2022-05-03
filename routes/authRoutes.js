@@ -25,15 +25,20 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
-      if (user.authenticate(req.body.password)) {
+      if (user.authenticate(req.body.pass)) {
         const userPayload = { id: user._id }; //* payload
 
         const accessToken = jwt.sign(userPayload, process.env.JWT_SECRET);
         const {hashPassword,...others} = user._doc ; 
 
         return res.status(200).json({
-          jwt_token: accessToken,
-          others  
+          accessToken,
+          "_id":others._id,
+          "username": others.username,
+          "email": others.email,
+          "profilePic": others.profilePic,
+          "createdAt": others.createdAt,
+          "updatedAt": others.updatedAt,  
         });
       } else {
         return res.status(201).json({
