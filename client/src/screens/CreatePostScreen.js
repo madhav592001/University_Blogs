@@ -2,8 +2,33 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { BsPenFill } from 'react-icons/bs';
 import { Form, Button } from 'react-bootstrap';
+import { useSelector,useDispatch } from 'react-redux';
+import { postBlog } from '../redux/actions/blogsActions';
 
 const CreatePostScreen = () => {
+
+  let dispatch = useDispatch(); 
+
+  const postBlogStatus = useSelector((state) => state.postBlog) ; 
+
+  const {posted,error,loading} = postBlogStatus ; 
+
+  const [blog,setBlog] = React.useState({
+    image:"",
+    title:"",
+    desc:""
+  })
+
+  const config = {
+    ...blog
+  }
+
+  function handleSubmit(e){
+    e.preventDefault() ; 
+    dispatch(postBlog(config)) ; 
+    // console.log(config)
+  }
+
   return (
     <Container>
       <h3 className='text-center my-3 text-decoration-underline '>
@@ -21,6 +46,8 @@ const CreatePostScreen = () => {
           placeholder='Title Of the Post'
           className='rounded'
           autoFocus={true}
+          value={blog.title}
+          onChange={(e)=>{setBlog({...blog,title:e.target.value})}}
         />
         <Form.Group
           className='mb-2 mt-3'
@@ -31,9 +58,11 @@ const CreatePostScreen = () => {
             as='textarea'
             rows={12}
             placeholder='Tell Your Story.......'
+            value={blog.desc}
+            onChange={(e)=>{setBlog({...blog,desc:e.target.value})}}
           />
         </Form.Group>
-        <Button variant='primary' type='submit'>
+        <Button variant='primary' onClick={handleSubmit}  >
           PUBLISH
         </Button>
       </Form>

@@ -5,7 +5,10 @@ import {
   GET_BLOGS_SUCCESS,
   GET_BLOG_FAIL,
   GET_BLOG_REQUEST,
-  GET_BLOG_SUCCESS
+  GET_BLOG_SUCCESS,
+  POST_BLOG_FAIL,
+  POST_BLOG_REQUEST,
+  POST_BLOG_SUCCESS
 } from '../constants/blogsConstants';
 
 export const getBlogs = () => async (dispatch) => {
@@ -34,6 +37,30 @@ export const getBlogsById = (id) => async(dispatch) =>{
 
   if (res.status === 500) {
     dispatch({ type: GET_BLOG_FAIL, payload: 'Something Error Occured!' });
+  }
+
+}
+
+export const postBlog = (config) => async(dispatch) => {
+
+  dispatch({type:POST_BLOG_REQUEST}) ; 
+
+  const data = {
+    headers:{
+      authorization:'Bearer '+localStorage.getItem("jwt_token")
+    }
+  }
+
+  const res = await axios.post("http://localhost:5000/blog",config,data) ; 
+
+  console.log(res) ; 
+
+  if(res.status === 401){
+    dispatch({type: POST_BLOG_FAIL, payload:res.data.message})
+  }
+
+  if (res.status === 200) {
+    dispatch({ type: POST_BLOG_SUCCESS});
   }
 
 }

@@ -4,7 +4,10 @@ import {
   GET_BLOGS_SUCCESS,
   GET_BLOG_FAIL,
   GET_BLOG_REQUEST,
-  GET_BLOG_SUCCESS
+  GET_BLOG_SUCCESS,
+  POST_BLOG_FAIL,
+  POST_BLOG_REQUEST,
+  POST_BLOG_SUCCESS
 } from '../constants/blogsConstants';
 
 export const allBlogsReducer = (state = { blogs: [] }, action) => {
@@ -19,7 +22,7 @@ export const allBlogsReducer = (state = { blogs: [] }, action) => {
       return { loading: false, error: action.payload };
 
     default:
-      return { blogs: [] };
+      return state;
   }
 };
 
@@ -35,6 +38,24 @@ export const blogReducer = (state = {blog:{}},action) => {
       return { loading: false, error: action.payload };
 
     default:
-      return { blog:{}};
+      return state;
   }
+}
+
+export const postBlogReducer = (state={posted:false},action) => {
+
+  switch(action.type){
+    case POST_BLOG_REQUEST:
+      return {loading:true} ; 
+
+    case POST_BLOG_SUCCESS:
+      return {loading:false,posted:true}; 
+
+    case POST_BLOG_FAIL:
+      return {loading:false,error:action.payload}
+
+    default:
+      return state ; 
+  }
+
 }

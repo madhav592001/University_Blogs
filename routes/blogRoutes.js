@@ -5,12 +5,21 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 //todo CREATE Blog
 router.post('/', authenticateToken, async (req, res) => {
+
+
+  
   const user = await User.findById(req.user.id);
 
   if (!user) {
     return res.status(401).json({
       message: 'User not found',
     });
+  }
+
+  if(!req.body.title || !req.body.desc){
+    return res.status(401).json({
+      "message":"Title or Description can't be empty"
+    })
   }
 
   const newBlog = new Blog({
