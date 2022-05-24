@@ -3,21 +3,20 @@ const router = require('express').Router();
 const User = require('../models/userModel');
 const authenticateToken = require('../middlewares/authenticateToken');
 
-//todo CREATE Blog
+//todo CREATE Blog -> Done from the frontend
 router.post('/', authenticateToken, async (req, res) => {
-
 
   
   const user = await User.findById(req.user.id);
 
   if (!user) {
-    return res.status(401).json({
+    return res.status(400).json({
       message: 'User not found',
     });
   }
 
   if(!req.body.title || !req.body.desc){
-    return res.status(401).json({
+    return res.status(210).json({
       "message":"Title or Description can't be empty"
     })
   }
@@ -56,7 +55,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
         res.status(500).json(err);
       }
     } else {
-      res.status(401).json("You can't update others Blog!");
+      res.status(210).json("You can't update others Blog!");
     }
   } catch (err) {
     console.log(err);

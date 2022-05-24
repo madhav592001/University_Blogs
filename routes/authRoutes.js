@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
     if (user) {
       if (user.authenticate(req.body.pass)) {
         const userPayload = { id: user._id }; //* payload
-        console.log(process.env.JWT_SECRET)
+        // console.log(process.env.JWT_SECRET)
         const accessToken = jwt.sign(userPayload, "SECRET");
         const {hashPassword,...others} = user._doc ; 
 
