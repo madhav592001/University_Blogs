@@ -42,7 +42,7 @@ export const login = (config) => async (dispatch) => {
   const res = await axios.post('http://localhost:5000/auth/login', config);
 
   if (res.status === 200) {
-    localStorage.setItem('user',JSON.stringify(res.data));
+     localStorage.setItem('user',JSON.stringify(res.data));
       dispatch({ type: LOGIN_SUCCESS });
   }
   if (res.status === 201 || res.status === 202) {

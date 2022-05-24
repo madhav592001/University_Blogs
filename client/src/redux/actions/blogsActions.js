@@ -47,15 +47,16 @@ export const postBlog = (config) => async(dispatch) => {
 
   const data = {
     headers:{
-      authorization:'Bearer '+localStorage.getItem("jwt_token")
+      authorization:JSON.parse(localStorage.getItem("user")).accessToken
     }
   }
+
 
   const res = await axios.post("http://localhost:5000/blog",config,data) ; 
 
   console.log(res) ; 
 
-  if(res.status === 401){
+  if(res.status === 210){
     dispatch({type: POST_BLOG_FAIL, payload:res.data.message})
   }
 

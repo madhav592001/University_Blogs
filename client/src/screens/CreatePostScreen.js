@@ -1,40 +1,73 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container,Alert ,Spinner } from 'react-bootstrap';
 import { BsPenFill } from 'react-icons/bs';
 import { Form, Button } from 'react-bootstrap';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { postBlog } from '../redux/actions/blogsActions';
 
 const CreatePostScreen = () => {
+  let dispatch = useDispatch();
 
-  let dispatch = useDispatch(); 
+  const postBlogStatus = useSelector((state) => state.postBlog);
 
-  const postBlogStatus = useSelector((state) => state.postBlog) ; 
+  const { posted, error, loading } = postBlogStatus;
 
-  const {posted,error,loading} = postBlogStatus ; 
-
-  const [blog,setBlog] = React.useState({
-    image:"",
-    title:"",
-    desc:""
-  })
+  const [blog, setBlog] = React.useState({
+    image: '',
+    title: '',
+    desc: '',
+  });
 
   const config = {
-    ...blog
-  }
+    ...blog,
+  };
 
-  function handleSubmit(e){
-    e.preventDefault() ; 
-    dispatch(postBlog(config)) ; 
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(postBlog(config));
     // console.log(config)
   }
 
   return (
     <Container>
+      {loading === true ? (
+        <div className='d-flex justify-content-center mt-5'>
+          <Spinner animation='border' role='status'>
+            <span>Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        ''
+      )}
+      {error ? (
+        <Alert className='w-100 d-flex justify-content-center my-5' variant='danger'>
+          {error}
+        </Alert>
+      ) : (
+        ''
+      )}
+      {posted ? (
+        <Alert className='w-100 d-flex justify-content-center my-5' variant='success'>
+          Blog Published Suceessfully
+        </Alert>
+      ) : (
+        ''
+      )
+        
+    }
       <h3 className='text-center my-3 text-decoration-underline '>
         Write Your Post <BsPenFill />
       </h3>
-      <img alt="post" src='/assets/post.jpg' style={{width:"100%",height:"250px",borderRadius:"10px",objectFit:"cover"}} />
+      <img
+        alt='post'
+        src='/assets/post.jpg'
+        style={{
+          width: '100%',
+          height: '250px',
+          borderRadius: '10px',
+          objectFit: 'cover',
+        }}
+      />
       <Form className='mt-3'>
         <Form.Group controlId='formFile' className='mb-3'>
           <Form.Label>Enter Image</Form.Label>
@@ -47,7 +80,9 @@ const CreatePostScreen = () => {
           className='rounded'
           autoFocus={true}
           value={blog.title}
-          onChange={(e)=>{setBlog({...blog,title:e.target.value})}}
+          onChange={(e) => {
+            setBlog({ ...blog, title: e.target.value });
+          }}
         />
         <Form.Group
           className='mb-2 mt-3'
@@ -59,10 +94,12 @@ const CreatePostScreen = () => {
             rows={12}
             placeholder='Tell Your Story.......'
             value={blog.desc}
-            onChange={(e)=>{setBlog({...blog,desc:e.target.value})}}
+            onChange={(e) => {
+              setBlog({ ...blog, desc: e.target.value });
+            }}
           />
         </Form.Group>
-        <Button variant='primary' onClick={handleSubmit}  >
+        <Button variant='primary' onClick={handleSubmit}>
           PUBLISH
         </Button>
       </Form>
