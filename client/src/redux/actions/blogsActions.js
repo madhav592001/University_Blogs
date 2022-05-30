@@ -71,6 +71,11 @@ export const postBlog = (config) => async (dispatch) => {
 export const deleteBlogById = (id) => async (dispatch) => {
   dispatch({ type: DELETE_BLOG_REQUEST });
 
+  if(localStorage.getItem("user") === null){
+    dispatch({type:DELETE_BLOG_FAIL,payload:"You have no access! first Login"})
+    return ; 
+  }
+
   const data = {
     headers: {
       authorization: JSON.parse(localStorage.getItem('user')).accessToken,
@@ -82,8 +87,10 @@ export const deleteBlogById = (id) => async (dispatch) => {
     .then((res) => {
       console.log(res);
       dispatch({ type: DELETE_BLOG_SUCCESS });
+
     })
     .catch((err) => {
+      console.log(err)
       if (err.response.status === 401) {
         dispatch({
           type: DELETE_BLOG_FAIL,

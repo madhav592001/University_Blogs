@@ -10,6 +10,7 @@ import ProfileSettings from './screens/ProfileSettings';
 import {Navigate} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import UpdatePostScreen from './screens/UpdatePostScreen';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route exact path='/settings' element={isLogin ? <ProfileSettings /> : <Navigate to="/" /> } />
           <Route exact path="/update/:id" element={isLogin ? <UpdatePostScreen /> : <Navigate to='/' />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

@@ -63,7 +63,7 @@ const PostScreen = () => {
               className='w-100 d-flex justify-content-center my-5'
               variant='success'
             >
-              Blog Published Suceessfully
+              Deleted Succesful
             </Alert>
           ) : (
             ''

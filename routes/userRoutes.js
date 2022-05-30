@@ -26,11 +26,11 @@ router.delete('/', authenticateToken, async (req, res) => {
     Blog.deleteMany({ username: user.username });
   } catch (error) {
       console.log(error)
-    return res.status(400).json('user not found');
+      return res.status(400).json({message:'user not found'});
   }
   try {
     await User.findByIdAndDelete(req.user.id);
-    return res.status(200).json('User has been deleted');
+    return res.status(200).json({message:'User has been deleted'});
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'internal server error!' });
