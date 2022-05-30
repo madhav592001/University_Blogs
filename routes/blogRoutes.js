@@ -55,7 +55,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
         res.status(500).json(err);
       }
     } else {
-      res.status(210).json("You can't update others Blog!");
+      res.status(401).json({message:"You can't update others Blog!"});
     }
   } catch (err) {
     console.log(err);
@@ -77,7 +77,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
         res.status(500).json(err);
       }
     } else {
-      res.status(401).json('You can delete only your Blog!');
+      res.status(401).json({message:'You Have no access to delete this blog'});
     }
   } catch (err) {
     res.status(500).json(err);

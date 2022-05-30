@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container,Alert ,Spinner } from 'react-bootstrap';
+import { Container, Alert, Spinner } from 'react-bootstrap';
 import { BsPenFill } from 'react-icons/bs';
 import { Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,20 +11,20 @@ const CreatePostScreen = () => {
   const postBlogStatus = useSelector((state) => state.postBlog);
 
   const { posted, error, loading } = postBlogStatus;
+  // const [file,setFile] = useState(null) ; 
 
   const [blog, setBlog] = React.useState({
-    image: '',
     title: '',
     desc: '',
   });
 
-  const config = {
-    ...blog,
-  };
+  // useEffect(() => {
 
-  function handleSubmit(e) {
+  // },[handleSubmit])
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postBlog(config));
+    dispatch(postBlog(blog));
     // console.log(config)
   }
 
@@ -40,21 +40,25 @@ const CreatePostScreen = () => {
         ''
       )}
       {error ? (
-        <Alert className='w-100 d-flex justify-content-center my-5' variant='danger'>
+        <Alert
+          className='w-100 d-flex justify-content-center my-5'
+          variant='danger'
+        >
           {error}
         </Alert>
       ) : (
         ''
       )}
       {posted ? (
-        <Alert className='w-100 d-flex justify-content-center my-5' variant='success'>
+        <Alert
+          className='w-100 d-flex justify-content-center my-5'
+          variant='success'
+        >
           Blog Published Suceessfully
         </Alert>
       ) : (
         ''
-      )
-        
-    }
+      )}
       <h3 className='text-center my-3 text-decoration-underline '>
         Write Your Post <BsPenFill />
       </h3>
@@ -69,10 +73,7 @@ const CreatePostScreen = () => {
         }}
       />
       <Form className='mt-3'>
-        <Form.Group controlId='formFile' className='mb-3'>
-          <Form.Label>Enter Image</Form.Label>
-          <Form.Control type='file' />
-        </Form.Group>
+
         <Form.Control
           size='lg'
           type='text'
@@ -99,7 +100,7 @@ const CreatePostScreen = () => {
             }}
           />
         </Form.Group>
-        <Button variant='primary' onClick={handleSubmit}>
+        <Button className='mb-5' variant='primary' onClick={handleSubmit}>
           PUBLISH
         </Button>
       </Form>

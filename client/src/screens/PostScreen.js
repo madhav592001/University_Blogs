@@ -1,22 +1,34 @@
 import React, { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Alert } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import { getBlogsById } from '../redux/actions/blogsActions';
+import { deleteBlogById, getBlogsById } from '../redux/actions/blogsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const PostScreen = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const blogById = useSelector((state) => state.blog);
   const { loading, blog } = blogById;
+  const deleteBlog = useSelector((state) => state.deleteBlog);
+  const { deleting, error, deleted } = deleteBlog;
 
   useEffect(() => {
     dispatch(getBlogsById(id));
-  }, [dispatch,id]);
+  }, [dispatch, id]);
 
+  function handleDelete(e) {
+    e.preventDefault();
+    dispatch(deleteBlogById(id));
+  }
+
+  function handleUpdate(e) {
+    e.preventDefault();
+    navigate(`/update/${id}`);
+  }
   // console.log(blog)
 
   return (
@@ -29,6 +41,33 @@ const PostScreen = () => {
         </div>
       ) : (
         <>
+          {deleting && (
+            <div className='d-flex justify-content-center my-5'>
+              <Spinner animation='border' role='status'>
+                <span>deleting...</span>
+              </Spinner>
+            </div>
+          )}
+          {error ? (
+            <Alert
+              className='w-100 d-flex justify-content-center my-5'
+              variant='danger'
+            >
+              {error}
+            </Alert>
+          ) : (
+            ''
+          )}
+          {deleted ? (
+            <Alert
+              className='w-100 d-flex justify-content-center my-5'
+              variant='success'
+            >
+              Blog Published Suceessfully
+            </Alert>
+          ) : (
+            ''
+          )}
           <img
             src='/assets/post.jpg'
             alt='post'
@@ -38,10 +77,16 @@ const PostScreen = () => {
           <h3 className='text-center  '>
             {blog.title}
             <div className='float-end'>
-              <button className='bg-light border border-light'>
+              <button
+                onClick={handleUpdate}
+                className='bg-light border border-light'
+              >
                 <FaEdit fontSize={30} style={{ color: 'teal' }} />
               </button>
-              <button className='bg-light border border-light'>
+              <button
+                onClick={handleDelete}
+                className='bg-light border border-light'
+              >
                 <MdDelete style={{ color: 'red' }} fontSize={30} />
               </button>
             </div>
@@ -56,9 +101,7 @@ const PostScreen = () => {
             </small>
           </div>
           <hr />
-          <span>
-          {blog.desc}
-          </span>
+          <span>{blog.desc}</span>
         </>
       )}
     </Container>
